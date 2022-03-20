@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 namespace CustomMath
 {
@@ -11,9 +9,12 @@ namespace CustomMath
         public float y;
         public float z;
 
-        public float sqrMagnitude { get { throw new NotImplementedException(); } }
-        public Vector3 normalized { get { throw new NotImplementedException(); } }
-        public float magnitude { get { throw new NotImplementedException(); } }
+        // longitud de un cuadrado
+        public float sqrMagnitude { get { return (Mathf.Pow(x, 2) + Mathf.Pow(y, 2) + Mathf.Pow(z, 2)); } }
+        public Vector3 normalized { get { return new Vec3(x / magnitude, y / magnitude, z / magnitude); } }
+
+        //la hipotenusa como magnitud del vector
+        public float magnitude { get { return Mathf.Sqrt(x * x + y * y + z * z); } }
         #endregion
 
         #region constants
