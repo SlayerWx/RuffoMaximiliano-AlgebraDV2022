@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ejer1 : MonoBehaviour
+public class Ejer1 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
