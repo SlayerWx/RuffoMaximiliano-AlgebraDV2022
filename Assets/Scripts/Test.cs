@@ -10,8 +10,8 @@ public class Test : MonoBehaviour
     public float equisdeB = 0;
     private void Start()
     {
-        equisdeA = Vector3.Angle(a, c);
-        equisdeB = Vec3.Angle(b, d);
+        a = Vector3.Cross(a, c);
+        b = Vec3.Cross(b, d);
 
     }
 }

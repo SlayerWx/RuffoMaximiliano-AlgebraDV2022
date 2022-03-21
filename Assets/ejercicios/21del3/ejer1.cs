@@ -40,7 +40,7 @@ public class Ejer1 : MonoBehaviour
                 C.z = A.z * B.z;
                 break;
             case Ejercicios.Cuatro:
-                C = Vec3.Cross(A,B);
+                C = Vec3.Cross(B,A);
                 break;
             case Ejercicios.Cinco:
                 break;
