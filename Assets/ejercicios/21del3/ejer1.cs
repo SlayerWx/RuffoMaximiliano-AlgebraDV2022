@@ -53,11 +53,16 @@ public class Ejer1 : MonoBehaviour
             case Ejercicios.Siete:
                 C = Vec3.Reflect(A,B);
                 break;
-            case Ejercicios.Ocho:
+            case Ejercicios.Ocho: // eeeeh... ok?, preguntar a lean luego
+                C = A + B;
+                C = C.normalized * Vec3.Distance(A,B);
                 break;
             case Ejercicios.Nueve:
                 break;
             case Ejercicios.Diez:
+                timer += Time.deltaTime;
+                if (timer > 10f) timer = 0f;
+                C = Vec3.LerpUnclamped(B,A,timer);
                 break;
         }
         MathDebbuger.Vector3Debugger.UpdatePosition("C", C);
