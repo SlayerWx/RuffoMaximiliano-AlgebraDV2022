@@ -13,6 +13,7 @@ public class Ejer1 : MonoBehaviour
     public Vec3 A;
     public Vec3 B;
     Vec3 C = Vec3.Zero;
+    float timer = 0f;
     // Update is called once per frame
     private void Start()
     {
@@ -25,7 +26,6 @@ public class Ejer1 : MonoBehaviour
         MathDebbuger.Vector3Debugger.UpdateColor("C",resultVectorColor);
         MathDebbuger.Vector3Debugger.UpdatePosition("A", A);
         MathDebbuger.Vector3Debugger.UpdatePosition("B", B);
-        MathDebbuger.Vector3Debugger.UpdatePosition("C", C);
         switch (ejer)
         {
             case Ejercicios.Uno:
@@ -43,10 +43,15 @@ public class Ejer1 : MonoBehaviour
                 C = Vec3.Cross(B,A);
                 break;
             case Ejercicios.Cinco:
+                timer += Time.deltaTime;
+                if (timer > 1f) timer = 0f;
+                C = Vec3.Lerp(A, B, timer);
                 break;
             case Ejercicios.Seis:
+                C = Vec3.Max(A,B);
                 break;
             case Ejercicios.Siete:
+                C = Vec3.Reflect(A,B);
                 break;
             case Ejercicios.Ocho:
                 break;
@@ -55,5 +60,6 @@ public class Ejer1 : MonoBehaviour
             case Ejercicios.Diez:
                 break;
         }
+        MathDebbuger.Vector3Debugger.UpdatePosition("C", C);
     }
 }
