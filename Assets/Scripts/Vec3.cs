@@ -209,8 +209,10 @@ namespace CustomMath
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-            
-            return new Vec3(inNormal * Dot(inDirection, inNormal) / Mathf.Pow(Magnitude(inNormal), 2));
+            float aux = -2f * Dot(inNormal, inDirection);
+            return new Vec3(aux * inNormal.x + inDirection.x,
+                            aux * inNormal.y + inDirection.y,
+                            aux * inNormal.z + inDirection.z);
         }
         public void Set(float newX, float newY, float newZ)
         {

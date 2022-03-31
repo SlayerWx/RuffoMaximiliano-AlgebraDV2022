@@ -58,10 +58,7 @@ public class Ejer1 : MonoBehaviour
                 C = C.normalized * Vec3.Distance(A,B);
                 break;
             case Ejercicios.Nueve:
-                //C.x = -A.x;  // vector perpendicular
-                //C.y = A.y;
-                //float angle;
-                //angle = Vec3.Angle(B,B-A);
+                C = Vec3.Reflect(this.A,B.normalized);
                 break;
             case Ejercicios.Diez:
                 timer += Time.deltaTime;
