@@ -176,7 +176,7 @@ namespace CustomMath
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
-            if (1.0f < t) t = 1.0f;
+            Mathf.Clamp01(t);
             return a + (b - a) * t;
         }
         public static Vec3 LerpUnclamped(Vec3 a, Vec3 b, float t)
@@ -209,10 +209,7 @@ namespace CustomMath
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-             // u . v
-             //------- *v
-             // |V|˄2
-             
+            
             return new Vec3(inNormal * Dot(inDirection, inNormal) / Mathf.Pow(Magnitude(inNormal), 2));
         }
         public void Set(float newX, float newY, float newZ)

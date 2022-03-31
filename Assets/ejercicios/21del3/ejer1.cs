@@ -51,13 +51,17 @@ public class Ejer1 : MonoBehaviour
                 C = Vec3.Max(A,B);
                 break;
             case Ejercicios.Siete:
-                C = Vec3.Reflect(A,B);
+                C = Vec3.Project(A,B);
                 break;
             case Ejercicios.Ocho: // eeeeh... ok?, preguntar a lean luego
                 C = A + B;
                 C = C.normalized * Vec3.Distance(A,B);
                 break;
             case Ejercicios.Nueve:
+                //C.x = -A.x;  // vector perpendicular
+                //C.y = A.y;
+                //float angle;
+                //angle = Vec3.Angle(B,B-A);
                 break;
             case Ejercicios.Diez:
                 timer += Time.deltaTime;
