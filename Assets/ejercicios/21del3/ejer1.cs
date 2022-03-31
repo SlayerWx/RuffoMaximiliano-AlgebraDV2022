@@ -53,7 +53,7 @@ public class Ejer1 : MonoBehaviour
             case Ejercicios.Siete:
                 C = Vec3.Project(A,B);
                 break;
-            case Ejercicios.Ocho: // eeeeh... ok?, preguntar a lean luego
+            case Ejercicios.Ocho:
                 C = A + B;
                 C = C.normalized * Vec3.Distance(A,B);
                 break;
