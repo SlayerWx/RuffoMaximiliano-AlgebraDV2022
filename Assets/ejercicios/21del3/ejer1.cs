@@ -6,7 +6,7 @@ public class Ejer1 : MonoBehaviour
 {
     public enum Ejercicios
     {
-        Uno,Dos,Tres,Cuatro,Cinco,Seis,Siete,Ocho,Nueve,Diez
+        Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete, Ocho, Nueve, Diez
     };
     public Ejercicios ejer;
     public Color resultVectorColor;
@@ -23,7 +23,7 @@ public class Ejer1 : MonoBehaviour
     }
     void Update()
     {
-        MathDebbuger.Vector3Debugger.UpdateColor("C",resultVectorColor);
+        MathDebbuger.Vector3Debugger.UpdateColor("C", resultVectorColor);
         MathDebbuger.Vector3Debugger.UpdatePosition("A", A);
         MathDebbuger.Vector3Debugger.UpdatePosition("B", B);
         switch (ejer)
@@ -40,7 +40,7 @@ public class Ejer1 : MonoBehaviour
                 C.z = A.z * B.z;
                 break;
             case Ejercicios.Cuatro:
-                C = Vec3.Cross(B,A);
+                C = Vec3.Cross(B, A);
                 break;
             case Ejercicios.Cinco:
                 timer += Time.deltaTime;
@@ -48,22 +48,22 @@ public class Ejer1 : MonoBehaviour
                 C = Vec3.Lerp(A, B, timer);
                 break;
             case Ejercicios.Seis:
-                C = Vec3.Max(A,B);
+                C = Vec3.Max(A, B);
                 break;
             case Ejercicios.Siete:
-                C = Vec3.Project(A,B);
+                C = Vec3.Project(A, B);
                 break;
             case Ejercicios.Ocho:
                 C = A + B;
-                C = C.normalized * Vec3.Distance(A,B);
+                C = C.normalized * Vec3.Distance(A, B);
                 break;
             case Ejercicios.Nueve:
-                C = Vec3.Reflect(this.A,B.normalized);
+                C = Vec3.Reflect(A, B);
                 break;
             case Ejercicios.Diez:
                 timer += Time.deltaTime;
                 if (timer > 10f) timer = 0f;
-                C = Vec3.LerpUnclamped(B,A,timer);
+                C = Vec3.LerpUnclamped(B, A, timer);
                 break;
         }
         MathDebbuger.Vector3Debugger.UpdatePosition("C", C);

@@ -211,12 +211,13 @@ namespace CustomMath
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
-		//al rebotar, si sacas una normal del lugar donde rebota, se puede ver que los angulos son cimetricos.. 
-
-            float aux = -2f * Dot(inNormal, inDirection);
-            return new Vec3(aux * inNormal.x + inDirection.x,
-                            aux * inNormal.y + inDirection.y,
-                            aux * inNormal.z + inDirection.z);
+            //al rebotar, si sacas una normal del lugar donde rebota, se puede ver que los angulos son cimetricos.. 
+            // al hacer Dot, si no se multiplica x2 dara solo a la mitad
+            Vec3 normalized = inNormal.normalized;
+            float aux = -2f * Dot(normalized, inDirection);
+            return new Vec3(aux * normalized.x + inDirection.x,  
+                            aux * normalized.y + inDirection.y, 
+                            aux * normalized.z + inDirection.z);
         }
         public void Set(float newX, float newY, float newZ)
         {
