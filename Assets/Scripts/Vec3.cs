@@ -204,8 +204,9 @@ namespace CustomMath
             //u * v
             //------ * v
             //v * v
-	    // (perpendicular al eje sobre la normal) 
-	    // usos ej: slider propio, sombras, ragdoll, saber que rotacion hara el cubo al caer, proyectando hacia el piso y viendo cual es mas largo.
+	        // (perpendicular al eje sobre la normal) 
+	        // usos ej: slider propio, sombras, ragdoll, saber que rotacion hara el cubo al caer,
+            // proyectando hacia el piso y viendo cual es mas largo.
             return new Vec3(Dot(vector, onNormal) / Dot(onNormal, onNormal) * onNormal);
             
         }
@@ -213,11 +214,14 @@ namespace CustomMath
         {
             //al rebotar, si sacas una normal del lugar donde rebota, se puede ver que los angulos son cimetricos.. 
             // al hacer Dot, si no se multiplica x2 dara solo a la mitad
+            //si el normalized quedo en 0, se cancela la multiplicacion 
+            // en cambio si esta por ejemplo en inD.x = 5,inN.x = 6; 
             Vec3 normalized = inNormal.normalized;
-            float aux = -2f * Dot(normalized, inDirection);
-            return new Vec3(aux * normalized.x + inDirection.x,  
+            float aux = -2f * Dot(normalized, inDirection);//  (-2*(5 * 1(inN.normalized) = 5)) = -10
+            return new Vec3(aux * normalized.x + inDirection.x, //-10 * 1(inN.normalized) = -10 + inD.x = -5
                             aux * normalized.y + inDirection.y, 
                             aux * normalized.z + inDirection.z);
+
         }
         public void Set(float newX, float newY, float newZ)
         {
