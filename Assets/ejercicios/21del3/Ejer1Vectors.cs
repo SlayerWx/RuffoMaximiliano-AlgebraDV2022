@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
-public class Ejer1 : MonoBehaviour
+public class Ejer1Vectors : MonoBehaviour
 {
     public enum Ejercicios
     {
