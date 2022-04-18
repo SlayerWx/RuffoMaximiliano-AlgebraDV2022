@@ -204,11 +204,15 @@ namespace CustomMath
             //u * v
             //------ * v
             //v * v
+	    // (perpendicular al eje sobre la normal) 
+	    // usos ej: slider propio, sombras, ragdoll, saber que rotacion hara el cubo al caer, proyectando hacia el piso y viendo cual es mas largo.
             return new Vec3(Dot(vector, onNormal) / Dot(onNormal, onNormal) * onNormal);
             
         }
         public static Vec3 Reflect(Vec3 inDirection, Vec3 inNormal)
         {
+		//al rebotar, si sacas una normal del lugar donde rebota, se puede ver que los angulos son cimetricos.. 
+
             float aux = -2f * Dot(inNormal, inDirection);
             return new Vec3(aux * inNormal.x + inDirection.x,
                             aux * inNormal.y + inDirection.y,
