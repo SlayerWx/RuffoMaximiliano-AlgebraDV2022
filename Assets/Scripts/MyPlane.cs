@@ -30,6 +30,16 @@ namespace CustomPlane
             distance = -distance;
         }
 
-
-}
+        public float GetDistanceToPoint(Vec3 point) 
+        {
+            // distancia positiva si el punto esta frente al plano
+            // distancia negativa si el punto esta espaldas al plano
+            return Vec3.Dot(point, normal) + distance / Vec3.Magnitude(normal);
+        }
+        public Vec3 GetClosetPoint(Vec3 point) 
+        {
+            //el punto mas cercano dentro del plano a este punto
+            return point - normal * GetDistanceToPoint(point); 
+        }
+    }
 }
