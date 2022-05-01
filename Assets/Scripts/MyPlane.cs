@@ -7,7 +7,7 @@ namespace CustomPlane
 {
     public class MyPlane : MonoBehaviour
     {
-        public Vec3 normal = Vec3.Zero;
+        public Vec3 normal = Vec3.One;
         public float distance = 0f;
         public MyPlane(Vec3 inPoint,Vec3 inNormal)
         {
