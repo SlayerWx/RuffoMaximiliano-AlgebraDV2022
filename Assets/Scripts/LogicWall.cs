@@ -10,8 +10,6 @@ public class LogicWall : MonoBehaviour
     public float width = 1f;
     public float height = 1f;
     MyPlane plane;
-    public Transform[] roomsLeft;
-    public Transform[] roomsRight;
     void Start()
     {
         plane = new MyPlane(originPoint,normal);
@@ -34,53 +32,5 @@ public class LogicWall : MonoBehaviour
     public MyPlane GetPlane()
     {
         return plane;
-    }
-    public void SetSideActive(bool right,bool active)
-    {
-        if(right)
-        {
-            for(int i = 0; i < roomsRight.Length;i++)
-            {
-                roomsRight[i].gameObject.SetActive(active);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < roomsLeft.Length; i++)
-            {
-                roomsLeft[i].gameObject.SetActive(active);
-            }
-        }
-    }
-    public void SearchRoom(Vec3 point)
-    {
-        float distancePoint = plane.GetDistanceToPoint(point);
-        Vec3 aux = Vec3.Zero;
-        for (int i = 0; i < roomsLeft.Length; i++)
-        {
-
-            aux.Set(roomsLeft[i].position.x, roomsLeft[i].position.y, roomsLeft[i].position.z);
-            if (plane.GetDistanceToPoint(aux)>0 && distancePoint > 0)
-            {
-                roomsLeft[i].gameObject.SetActive(true);
-            }
-            else if (plane.GetDistanceToPoint(aux) < 0 && distancePoint < 0)
-            {
-                roomsLeft[i].gameObject.SetActive(true);
-            }
-        }
-        for (int i = 0; i < roomsRight.Length; i++)
-        {
-
-            aux.Set(roomsRight[i].position.x, roomsRight[i].position.y, roomsRight[i].position.z);
-            if (plane.GetDistanceToPoint(aux) > 0 && distancePoint > 0)
-            {
-                roomsRight[i].gameObject.SetActive(true);
-            }
-            else if (plane.GetDistanceToPoint(aux) < 0 && distancePoint < 0)
-            {
-                roomsRight[i].gameObject.SetActive(true);
-            }
-        }
     }
 }

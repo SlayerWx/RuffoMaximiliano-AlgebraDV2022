@@ -13,7 +13,8 @@ namespace CustomPlane
         {
 	    //calculo de un plano: normal.a * punto a + normal.b * punto.b + normal.c * punto.c + distancia = 0
             normal = inNormal;
-            distance = -Vec3.Dot(inNormal,inPoint); // distancia al punto que apunta la normal 
+            distance = -Vec3.Dot(inNormal,inPoint); // distancia al punto que apunta la normal ;
+            
         }
         public MyPlane(Vec3 A, Vec3 B, Vec3 C)
         {

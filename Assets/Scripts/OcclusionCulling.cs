@@ -10,6 +10,11 @@ public class OcclusionCulling : MonoBehaviour
     public Camera cm;
     public Room[] rooms;
 
+    private void Start()
+    {
+        if (precisionRayDivisions > 200f) precisionRayDivisions = 200f;
+        if (lengthDivision > 200f) lengthDivision = 200f;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -23,7 +28,6 @@ public class OcclusionCulling : MonoBehaviour
         for (float i = frustrumwidth; i < (frustrumwidth * -1)+1; i += ((frustrumwidth * -2) / precisionRayDivisions))
         {
             //a + (b - a) * t
-            float e = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * 0.5f;
             for (int t = 1; t <= lengthDivision; t++)
             {
                 float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / lengthDivision);
@@ -31,16 +35,17 @@ public class OcclusionCulling : MonoBehaviour
                 Vec3 auxFoward = new Vec3(cm.transform.forward);
                 Vec3 auxPosition = new Vec3(cm.transform.position);
 
-                SearchPointAtRoom((auxPosition + (auxFoward * aux)) + auxRight * (i * (t / lengthDivision)));
+                SearchPointAtRoom((auxPosition + (auxFoward * aux)) + auxRight * (i * (t / lengthDivision)),
+                    new Vec3(cm.transform.position));
 
             }
         }
     }
-    void SearchPointAtRoom(Vec3 point) 
+    void SearchPointAtRoom(Vec3 point, Vec3 viewOriginPoint) 
     {
         for (int i = 0; i < rooms.Length; i++)
         {
-            rooms[i].SearchPointInsideRoom(point);
+            rooms[i].SearchPointInsideRoom(point,viewOriginPoint);
         }
     }
     public void OnDrawGizmos()
