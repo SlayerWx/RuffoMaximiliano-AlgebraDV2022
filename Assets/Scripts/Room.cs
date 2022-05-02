@@ -9,8 +9,7 @@ public class Room : MonoBehaviour
     
     public void SearchPointInsideRoom(Vec3 point)
     {
-        Vec3 aux = Vec3.Zero;
-        aux.Set(transform.position.x, transform.position.y, transform.position.z);
+        Vec3 aux = new Vec3(transform.position);
         // Debug.Log("plano 0: " + planes[0].GetPlane().GetDistanceToPoint(point) + " " + planes[0].GetPlane().GetDistanceToPoint(aux));
 
         bool isInside = true;
@@ -23,18 +22,7 @@ public class Room : MonoBehaviour
                 isInside = false;
             }
         }
-       // Debug.Log(isInside);
 
-            //for(int i = 0; i < planes.Length;i++)
-            //{
-            //    if((!(planes[i].GetPlane().GetDistanceToPoint(point) > 0 &&
-            //       planes[i].GetPlane().GetDistanceToPoint(aux) > 0) ||
-            //       !(planes[i].GetPlane().GetDistanceToPoint(point) < 0 &&
-            //       planes[i].GetPlane().GetDistanceToPoint(aux) < 0)))
-            //    { 
-            //        pointHere = false;
-            //    }
-            //}
         if (isInside && !transform.gameObject.activeSelf)
         {
             transform.gameObject.SetActive(true);

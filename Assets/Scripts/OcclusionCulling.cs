@@ -9,13 +9,6 @@ public class OcclusionCulling : MonoBehaviour
     public float lengthDivision = 10;
     public Camera cm;
     public Room[] rooms;
-    void Start() 
-    {
-        //for(int i = 0; i < rooms.Length;i++)
-        //{
-        //    rooms[i].gameObject.SetActive(false);
-        //}
-    }
 
     // Update is called once per frame
     void FixedUpdate()
