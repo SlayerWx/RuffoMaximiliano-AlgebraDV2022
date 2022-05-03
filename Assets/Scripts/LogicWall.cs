@@ -6,7 +6,7 @@ using CustomPlane;
 public class LogicWall : MonoBehaviour
 {
     public Vec3 originPoint = Vec3.Zero;
-    public Vec3 normal = Vec3.Zero;
+    [SerializeField] Vec3 normal = Vec3.Zero;
     public float width = 1f;
     public float height = 1f;
     MyPlane plane;

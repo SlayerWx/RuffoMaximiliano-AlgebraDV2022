@@ -22,9 +22,14 @@ public class Room : MonoBehaviour
         Vec3 positionAux = new Vec3(transform.position);
         if (isInside && !transform.gameObject.activeSelf)
         {
-           if(doors != null) doors.VerifyVectorToNextRoom(origin, point, positionAux);
+            bool seeDoor = false;
+            if (doors != null)
+            {
+                seeDoor = doors.VerifyVectorToNextRoom(origin, point, positionAux, planes[0].GetPlane().normal);
+                
+            }
 
-
+            /*if(seeDoor)*/ transform.gameObject.SetActive(true);
             ////transform.gameObject.SetActive(true);
             //for (int i = 0; i < doors.GetDoors().Length; i++)
             //{
@@ -32,10 +37,9 @@ public class Room : MonoBehaviour
             //
             //if (doors.VerifyVectorToNextRoom(origin,point, positionAux))
             //{
-
-            transform.gameObject.SetActive(true);
-                   // break;
-              //  }
+            //transform.gameObject.SetActive(true);
+            // break;
+            //  }
             //}
         }
     }
