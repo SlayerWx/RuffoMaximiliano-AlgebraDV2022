@@ -837,8 +837,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fa40126c9a723479ad79c75b1103f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  precisionRayDivisions: 0
-  lengthDivision: 1
+  precisionRayDivisions: 10
+  lengthDivision: 3
   cm: {fileID: 746050764}
   rooms:
   - {fileID: 479492766}
