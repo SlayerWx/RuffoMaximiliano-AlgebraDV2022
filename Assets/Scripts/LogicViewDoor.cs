@@ -23,34 +23,39 @@ public class LogicViewDoor : MonoBehaviour
     }
     public bool VerifyVectorToNextRoom(Vec3 viewPosition, Vec3 pointLoader, Vec3 nextRoomPosition, Vec3 normalFromPlane)
     {
-        if ((wallToDoors[0].GetPlane().GetDistanceToPoint(pointLoader) < 0) == (wallToDoors[0].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0))
+        for (int i = 0; i < wallToDoors.Length; i++)
         {
-            Vec3 direction = Vec3.Cross(wallToDoors[0].GetPlane().normal, Vec3.Up).normalized;
-            Vec3 center = new Vec3(wallToDoors[0].GetPlane().GetClosetPoint(nextRoomPosition)) + (direction * doors[0].distanceFromCenter);
-            Vec3 left = center - (direction * doors[0].width);
-            Vec3 right = center + (direction * doors[0].width);
-
-            centerAux = center; //Gizmos
-            leftAux = left; //Gizmos
-            rightAux = right; //Gizmos
-            Vec3 cameraToPoint = (pointLoader - viewPosition).normalized;
-
-
-            float a = Vec3.Dot((center - viewPosition), normalFromPlane);
-            float b = Vec3.Dot(cameraToPoint, normalFromPlane);
-            if (b == 0) return false; // vector paralelo al plano
-            if (a == 0) return false;// el vector comparte todos sus puntos con el plano
-            Vec3 P = (a / b) * cameraToPoint + viewPosition;
-            centerAux = new Vec3(P);
-            P.y = 0f;
-            left.y = 0f;
-            right.y = 0f;
-            center.y = 0f;
-
-            if (Vec3.Distance(left, right) / 2 > Vec3.Distance(P, center)) // dentro de la puerta
+            if ((wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) < 0) == (wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0))
             {
+                Vec3 direction = Vec3.Cross(wallToDoors[i].GetPlane().normal, Vec3.Up).normalized;
+                Vec3 center = new Vec3(wallToDoors[i].GetPlane().GetClosetPoint(nextRoomPosition)) + (direction * doors[i].distanceFromCenter);
+                Vec3 left = center - (direction * doors[i].width);
+                Vec3 right = center + (direction * doors[i].width);
 
-                return true;
+                centerAux = center; //Gizmos
+                leftAux = left; //Gizmos
+                rightAux = right; //Gizmos
+                Vec3 cameraToPoint = (pointLoader - viewPosition).normalized;
+
+
+                float a = Vec3.Dot((center - viewPosition), normalFromPlane);
+                float b = Vec3.Dot(cameraToPoint, normalFromPlane);
+                if (!(b == 0 || a == 0))// vector paralelo al plano o  el vector comparte todos sus puntos con el plano
+                {
+                    Vec3 P = (a / b) * cameraToPoint + viewPosition;
+                    centerAux = new Vec3(P);
+                    P.y = 0f;
+                    left.y = 0f;
+                    right.y = 0f;
+                    center.y = 0f;
+
+
+                    if (Vec3.Distance(left, right) / 2 > Vec3.Distance(P, center)) // dentro de la puerta
+                    {
+
+                        return true;
+                    }
+                }
             }
         }
         return false;

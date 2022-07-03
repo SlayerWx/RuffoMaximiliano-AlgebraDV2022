@@ -15,6 +15,7 @@ public class Room : MonoBehaviour
         {
             isInside = !((planes[i].GetPlane().GetDistanceToPoint(viewPoint) > 0f && planes[i].GetPlane().GetDistanceToPoint(aux) < 0f) ||
             (planes[i].GetPlane().GetDistanceToPoint(viewPoint) < 0f && planes[i].GetPlane().GetDistanceToPoint(aux) > 0f));
+            if(isInside)Debug.Log(transform.gameObject.name);
         }
         return isInside;
     }
@@ -29,31 +30,33 @@ public class Room : MonoBehaviour
         {
             isInside = !((planes[i].GetPlane().GetDistanceToPoint(point) > 0f && planes[i].GetPlane().GetDistanceToPoint(aux) < 0f) ||
             (planes[i].GetPlane().GetDistanceToPoint(point) < 0f && planes[i].GetPlane().GetDistanceToPoint(aux) > 0f));
-        }
-        Vec3 positionAux = new Vec3(transform.position);
 
-
-        if (isInside && !transform.gameObject.activeSelf)
-        {
-            bool seeDoor = false;
-            if (doors != null)
+            Vec3 positionAux = new Vec3(transform.position);
+            if (isInside && !transform.gameObject.activeSelf)
             {
-                seeDoor = doors.VerifyVectorToNextRoom(origin, point, positionAux, planes[0].GetPlane().normal);
-                
-            }
+                bool seeDoor = false;
+                if (doors != null)
+                {
+                    seeDoor = doors.VerifyVectorToNextRoom(origin, point, positionAux, planes[i].GetPlane().normal);
 
-            if(seeDoor) transform.gameObject.SetActive(true);
-            ////transform.gameObject.SetActive(true);
-            //for (int i = 0; i < doors.GetDoors().Length; i++)
-            //{
-            //    
-            //
-            //if (doors.VerifyVectorToNextRoom(origin,point, positionAux))
-            //{
-            //transform.gameObject.SetActive(true);
-            // break;
-            //  }
-            //}
+                }
+
+                if (seeDoor) transform.gameObject.SetActive(true);
+                ////transform.gameObject.SetActive(true);
+                //for (int i = 0; i < doors.GetDoors().Length; i++)
+                //{
+                //    
+                //
+                //if (doors.VerifyVectorToNextRoom(origin,point, positionAux))
+                //{
+                //transform.gameObject.SetActive(true);
+                // break;
+                //  }
+                //}
+            }
         }
+
+
+
     }
 }
