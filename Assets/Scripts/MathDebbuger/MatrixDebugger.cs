@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-
+using CustomMath;
 public class MatrixDebugger : EditorWindow
 {
     public GameObject target;
@@ -27,30 +27,31 @@ public class MatrixDebugger : EditorWindow
             target.transform.localScale = EditorGUILayout.Vector3Field("Scale: ", target.transform.localScale);
             EditorGUILayout.LabelField("Translation matrix", style);
             EditorGUILayout.Space(10);
-            DrawMatrix(Matrix4x4.Translate(target.transform.position));
+            DrawMatrix(Matrix4x4.Translate(target.transform.position), MyMatrix4x4.Translate(target.transform.position));
 
             EditorGUILayout.Space(40);
 
             EditorGUILayout.LabelField("Rotation matrix", style);
             EditorGUILayout.Space(10);
-            DrawMatrix(Matrix4x4.Rotate(target.transform.rotation));
+            DrawMatrix(Matrix4x4.Rotate(target.transform.rotation), MyMatrix4x4.Rotate(target.transform.rotation));
 
             EditorGUILayout.Space(40);
 
             EditorGUILayout.LabelField("Scale matrix", style);
             EditorGUILayout.Space(10);
-            DrawMatrix(Matrix4x4.Scale(target.transform.localScale));
+            DrawMatrix(Matrix4x4.Scale(target.transform.localScale), MyMatrix4x4.Scale(target.transform.localScale));
 
             EditorGUILayout.Space(40);
 
             EditorGUILayout.LabelField("TRS matrix", style);
             EditorGUILayout.Space(10);
-            DrawMatrix(Matrix4x4.TRS(target.transform.position, target.transform.rotation, target.transform.localScale));
+            DrawMatrix(Matrix4x4.TRS(target.transform.position, target.transform.rotation, target.transform.localScale),
+                MyMatrix4x4.TRS(target.transform.position, target.transform.rotation, target.transform.localScale));
             EditorGUILayout.EndScrollView();
         }
     }
 
-    private void DrawMatrix(Matrix4x4 matrix)
+    private void DrawMatrix(Matrix4x4 matrix,MyMatrix4x4 my )
     {
         GUIStyle style = new GUIStyle();
         style.fontSize = 20;
@@ -59,6 +60,12 @@ public class MatrixDebugger : EditorWindow
         EditorGUILayout.LabelField("| " + matrix.m10.ToString("00.00") + " " + matrix.m11.ToString("00.00") + " " + matrix.m12.ToString("00.00") + " " + matrix.m13.ToString("00.00") + " |", style);
         EditorGUILayout.LabelField("| " + matrix.m20.ToString("00.00") + " " + matrix.m21.ToString("00.00") + " " + matrix.m22.ToString("00.00") + " " + matrix.m23.ToString("00.00") + " |", style);
         EditorGUILayout.LabelField("| " + matrix.m30.ToString("00.00") + " " + matrix.m31.ToString("00.00") + " " + matrix.m32.ToString("00.00") + " " + matrix.m33.ToString("00.00") + " |", style);
+        EditorGUILayout.Space();
+        style.normal.textColor = Color.yellow;
+        EditorGUILayout.LabelField("| " + my.m00.ToString("00.00") + " " + my.m01.ToString("00.00") + " " + my.m02.ToString("00.00") + " " + my.m03.ToString("00.00") + " |", style);
+        EditorGUILayout.LabelField("| " + my.m10.ToString("00.00") + " " + my.m11.ToString("00.00") + " " + my.m12.ToString("00.00") + " " + my.m13.ToString("00.00") + " |", style);
+        EditorGUILayout.LabelField("| " + my.m20.ToString("00.00") + " " + my.m21.ToString("00.00") + " " + my.m22.ToString("00.00") + " " + my.m23.ToString("00.00") + " |", style);
+        EditorGUILayout.LabelField("| " + my.m30.ToString("00.00") + " " + my.m31.ToString("00.00") + " " + my.m32.ToString("00.00") + " " + my.m33.ToString("00.00") + " |", style);
     }
 
 }
