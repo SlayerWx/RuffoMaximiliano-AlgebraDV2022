@@ -112,46 +112,17 @@ namespace CustomMath
         {
             get
             {
-                float diagonal = m00 + m11 + m22;
-                float qw = 0;
-                float qx = 0;
-                float qy = 0;
-                float qz = 0;
-
-                if (diagonal > 0)
-                {
-                    float wComp = Mathf.Sqrt(diagonal + 1.0f) * 2;
-                    qw = 0.25f * wComp;
-                    qx = (m21 - m12) / wComp;
-                    qy = (m02 - m20) / wComp;
-                    qz = (m10 - m01) / wComp;
-                }
-                else if ((m00 > m11) && (m00 > m22))
-                {
-                    float wComp = Mathf.Sqrt(1.0f + m00 - m11 - m22) * 2;
-                    qw = (m21 - m12) / wComp;
-                    qx = 0.25f * wComp;
-                    qy = (m01 + m10) / wComp;
-                    qz = (m02 + m20) / wComp;
-                }
-                else if ((m11 > m22))
-                {
-                    float wComp = Mathf.Sqrt(1.0f + m11 - m00 - m22) * 2;
-                    qw = (m02 - m20) / wComp;
-                    qx = (m01 + m10) / wComp;
-                    qy = 0.25f * wComp;
-                    qz = (m12 + m21) / wComp;
-                }
-                else
-                {
-                    float wComp = Mathf.Sqrt(1.0f + m22 - m00 - m11) * 2;
-                    qw = (m10 - m01) / wComp;
-                    qx = (m02 + m20) / wComp;
-                    qy = (m12 + m21) / wComp;
-                    qz = 0.25f * wComp;
-                }
-
-                return new Quaternion(qx, qy, qz, qw);
+                // Mathf.Max para evitar numeros inapropiados, 
+                Quaternion q = Quaternion.identity;
+                q.w = Mathf.Sqrt(Mathf.Max(0, 1 + m00 + m11 + m22)) / 2;
+                q.x = Mathf.Sqrt(Mathf.Max(0, 1 + m00 - m11 - m22)) / 2;
+                q.y = Mathf.Sqrt(Mathf.Max(0, 1 - m00 + m11 - m22)) / 2;
+                q.z = Mathf.Sqrt(Mathf.Max(0, 1 - m00 - m11 + m22)) / 2;
+                // Sign toma el signo del segundo término y establece el signo del primero sin alterar la magnitud
+                q.x = Mathf.Sign(q.x * (m21 - m12));
+                q.y = Mathf.Sign(q.y * (m02 - m20));
+                q.z = Mathf.Sign(q.z * (m10 - m01));
+                return q;
             }
         }
         public Vector3 LossyScale
@@ -295,13 +266,13 @@ namespace CustomMath
             this = TRS(position, rotation, scale);
         }
         public static MyMatrix4x4 TRS(Vector3 position, Quaternion rotation, Vector3 scale)
-        {
+        { //esto me recuerda mucho a mvp XD, buen model (?
             return Translate(position) * Rotate(rotation) * Scale(scale);
         }
         public static MyMatrix4x4 Translate(Vector3 vec)
         {
             MyMatrix4x4 auxTranslate = Identity;
-
+            //suma el vec3 a los slots de posicion
             Vector4 vecTranslate = new Vector4(vec.x + auxTranslate.m03, vec.y + auxTranslate.m13, vec.z + auxTranslate.m23, 1);
 
             auxTranslate.m03 = vecTranslate.x;
@@ -314,9 +285,9 @@ namespace CustomMath
         public static MyMatrix4x4 Scale(Vector3 vec)
         {
             MyMatrix4x4 matScale = Identity;
-
+            //multiplica la escala por lo que ya esta dentro de los slots de la matriz
             Vector4 vecScale = new Vector4(vec.x * matScale.m00, vec.y * matScale.m11, vec.z * matScale.m22, 1);
-
+            // lo reemplaza
             matScale.m00 = vecScale.x;
             matScale.m11 = vecScale.y;
             matScale.m22 = vecScale.z;
@@ -326,8 +297,16 @@ namespace CustomMath
         }
         public static MyMatrix4x4 Rotate(Quaternion q)
         {
+            // calculo que hace la grafica y rota todo a la vez.. 
+            //  p' = q*p*q^-1
+            //  Cos(angulo/2) + Sin(angulo)(ijk)
 
-            MyMatrix4x4 mat = Identity;
+            /*
+            m02 = 2 * qx * qz + 2 * qy * qw | m00 = 1 - 2 * qy2 - 2 * qz2     | m01 = 2 * qx * qy - 2 * qz * qw   
+            m12 = 2 * qy * qz - 2 * qx * qw | m10 = 2 * qx * qy + 2 * qz * qw | m11 = 1 - 2 * qx2 - 2 * qz2
+            m22 = 1 - 2 * qx2 - 2 * qy2     | m20 = 2 * qx * qz - 2 * qy * qw | m21 = 2 * qy * qz + 2 * qx * qw 
+            */
+            MyMatrix4x4 mat = Identity; // calculo que hace la grafica y rota todo a la vez.. 
             mat.m02 = 2.0f * (q.x * q.z) + 2.0f * (q.y * q.w);
             mat.m12 = 2.0f * (q.y * q.z) - 2.0f * (q.x * q.w);
             mat.m22 = 1 - 2.0f * (q.x * q.x) - 2.0f * (q.y * q.y);
@@ -374,7 +353,7 @@ namespace CustomMath
             return matResult;
         }
         public static Vector4 operator *(MyMatrix4x4 mat, Vector4 vector)
-        {
+        { // ojo de pez, deformacion de los objetos en transformX, rotacionX y escala, modifica solo la primera fila de la matriz
             float x = Vector4.Dot(mat.GetRow(0), vector);
             float y = Vector4.Dot(mat.GetRow(1), vector);
             float z = Vector4.Dot(mat.GetRow(2), vector);
