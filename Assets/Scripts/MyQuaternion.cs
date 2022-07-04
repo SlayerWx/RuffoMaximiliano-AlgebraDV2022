@@ -12,28 +12,28 @@ namespace CustomMath
         public float z;
         public float w;
 
-        public MyQuaternion(float x, float y, float z, float w)
+        public MyQuaternion(float x, float y, float z, float w) //constructor
         {
             this.x = x;
             this.y = y;
             this.z = z;
             this.w = w;
         }
-        public MyQuaternion(Quaternion q)
+        public MyQuaternion(Quaternion q) //constructor
         {
             x = q.x;
             y = q.y;
             z = q.z;
             w = q.w;
         }
-        public MyQuaternion(MyQuaternion q)
+        public MyQuaternion(MyQuaternion q) //constructor
         {
             x = q.x;
             y = q.y;
             z = q.z;
             w = q.w;
         }
-        public static MyQuaternion identity
+        public static MyQuaternion identity //default
         {
             get
             {
@@ -106,14 +106,14 @@ namespace CustomMath
         {
             get
             {
-                float mag = Mathf.Sqrt(x * x + y * y + z * z + w * w);
-                Quaternion q = new Quaternion(x / mag, y / mag, z / mag, w / mag);
+                float mag = Mathf.Sqrt(x * x + y * y + z * z + w * w); //raiz cuadrada de la multiplicacion de la suma de todos los ejes ya potenciados a la 2
+                Quaternion q = new Quaternion(x / mag, y / mag, z / mag, w / mag); 
                 return new MyQuaternion(q.x, q.y, q.z, q.w);
             }
         }
 
         ///Public Methods
-        public void Set(float newX, float newY, float newZ, float newW)
+        public void Set(float newX, float newY, float newZ, float newW) //setter
         {
             x = newX;
             y = newY;
@@ -121,9 +121,9 @@ namespace CustomMath
             w = newW;
         }
 
-        public void SetFromToRotation(Vec3 fromDirection, Vec3 toDirection)
+        public void SetFromToRotation(Vec3 fromDirection, Vec3 toDirection) 
         {
-            MyQuaternion q = FromToRotation(fromDirection, toDirection);
+            MyQuaternion q = FromToRotation(fromDirection, toDirection); // hace una rotacion que gira desde from a to
             x = q.x;
             y = q.y;
             z = q.z;
@@ -213,7 +213,7 @@ namespace CustomMath
 
         public static MyQuaternion FromToRotation(Vec3 fromDirection, Vec3 toDirection)
         {
-            // hace uan rotacion que gira desde from a to
+            // hace una rotacion que gira desde from a to
 
             Vec3 cross = Vec3.Cross(fromDirection, toDirection);
             MyQuaternion q = identity;
@@ -262,7 +262,7 @@ namespace CustomMath
             else
             {
                 up.Normalize();
-                Vec3 a = forward + up - Vec3.Cross(forward, up);
+                Vec3 a = forward + up - Vec3.Cross(forward, up); // usa foward y up como identificar que debe modificar
                 MyQuaternion q = FromToRotation(Vec3.Forward, a);
                 return FromToRotation(a, forward) * q;
             }
@@ -285,9 +285,10 @@ namespace CustomMath
             float num1;
             float num2;
             MyQuaternion quaternion = identity;
-            float dot = (((a.x * b.x) + (a.y * b.y)) + (a.z * b.z)) + (a.w * b.w);
+            //calcula el angulo entre ambos
+            float dot = (((a.x * b.x) + (a.y * b.y)) + (a.z * b.z)) + (a.w * b.w); //producto punto
             bool neg = false;
-            if (dot < 0f)
+            if (dot < 0f) 
             {
                 neg = true;
                 dot = -dot;
@@ -300,6 +301,7 @@ namespace CustomMath
             }
             else
             {
+                //calculos del angulo "theta"
                 float num3 = (float)Math.Acos(dot);
                 float num4 = (float)(1.0 / Math.Sin(num3));
                 num1 = ((float)Math.Sin(((1f - t) * num3))) * num4;
@@ -325,6 +327,7 @@ namespace CustomMath
 
         public static Vec3 operator *(MyQuaternion rotation, Vec3 point)
         {
+            //productos intermedios
             float x2 = rotation.x * 2f;
             float y2 = rotation.y * 2f;
             float z2 = rotation.z * 2f;
@@ -338,6 +341,7 @@ namespace CustomMath
             float wy2 = rotation.w * y2;
             float wz2 = rotation.w * z2;
 
+            // se aplica al vector directo que a su vez da la dirección unitaria
             Vec3 result;
             result.x = (1f - (yy2 + zz2)) * point.x + (xy2 - wz2) * point.y + (xz2 + wy2) * point.z;
             result.y = (xy2 + wz2) * point.x + (1f - (xx2 + zz2)) * point.y + (yz2 - wx2) * point.z;
