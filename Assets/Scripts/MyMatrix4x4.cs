@@ -112,7 +112,7 @@ namespace CustomMath
         {
             get
             {
-                // https://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/
+                // https://answers.unity.com/questions/11363/converting-matrix4x4-to-quaternion-vector3.html
                 // Mathf.Max para evitar numeros inapropiados, 
                 Quaternion q = Quaternion.identity;
                 q.w = Mathf.Sqrt(Mathf.Max(0, 1 + m00 + m11 + m22)) / 2;
