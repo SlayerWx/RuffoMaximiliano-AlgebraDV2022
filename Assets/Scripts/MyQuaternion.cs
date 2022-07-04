@@ -304,7 +304,7 @@ namespace CustomMath
                 //calculos del angulo "theta"
                 float num3 = (float)Math.Acos(dot);
                 float num4 = (float)(1.0 / Math.Sin(num3));
-                num1 = ((float)Math.Sin(((1f - t) * num3))) * num4;
+                num1 = ((float)Math.Sin(((1f - t) * num3))) * num4;//lerp
                 if (neg)
                     num2 = (((float)-Math.Sin((t * num3))) * num4);
                 else
@@ -328,22 +328,22 @@ namespace CustomMath
         public static Vec3 operator *(MyQuaternion rotation, Vec3 point)
         {
             //productos intermedios
-            float x2 = rotation.x * 2f;
+            float x2 = rotation.x * 2f; //ejes de rotacion
             float y2 = rotation.y * 2f;
             float z2 = rotation.z * 2f;
-            float xx2 = rotation.x * x2;
+            float xx2 = rotation.x * x2; //planos de rotacion
             float yy2 = rotation.y * y2;
             float zz2 = rotation.z * z2;
             float xy2 = rotation.x * y2;
             float xz2 = rotation.x * z2;
             float yz2 = rotation.y * z2;
-            float wx2 = rotation.w * x2;
+            float wx2 = rotation.w * x2; //reales
             float wy2 = rotation.w * y2;
             float wz2 = rotation.w * z2;
 
             // se aplica al vector directo que a su vez da la dirección unitaria
             Vec3 result;
-            result.x = (1f - (yy2 + zz2)) * point.x + (xy2 - wz2) * point.y + (xz2 + wy2) * point.z;
+            result.x = (1f - (yy2 + zz2)) * point.x + (xy2 - wz2) * point.y + (xz2 + wy2) * point.z; //"1f -" ignora este eje
             result.y = (xy2 + wz2) * point.x + (1f - (xx2 + zz2)) * point.y + (yz2 - wx2) * point.z;
             result.z = (xz2 - wy2) * point.x + (yz2 + wx2) * point.y + (1f - (xx2 + yy2)) * point.z;
             return result;
@@ -351,7 +351,6 @@ namespace CustomMath
         }
         public static MyQuaternion operator *(MyQuaternion a, MyQuaternion b)
         {
-            //recorda la foto de excel y las reglas basicas de i,j,k
             float x = (a.w * b.x) + (a.x * b.w) + (a.y * b.z) - (a.z * b.y);
             float y = (a.w * b.y) - (a.x * b.z) + (a.y * b.w) + (a.z * b.x);
             float z = (a.w * b.z) + (a.x * b.y) - (a.y * b.x) + (a.z * b.w);
