@@ -37,19 +37,37 @@ public class OcclusionCulling : MonoBehaviour
                 float countLengthDivision = 0;
                 float start = cm.nearClipPlane;
                 float end = (cm.nearClipPlane + cm.farClipPlane);
+                Vec3 auxRight = new Vec3(cm.transform.right);
+                Vec3 auxFoward = new Vec3(cm.transform.forward);
+                Vec3 auxPosition = new Vec3(cm.transform.position);
                 //a + (b - a) * t
                 do
                 {
                     float t = start + ((end - start) / 2);
                     float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / end);
-                    Vec3 auxRight = new Vec3(cm.transform.right);
-                    Vec3 auxFoward = new Vec3(cm.transform.forward);
-                    Vec3 auxPosition = new Vec3(cm.transform.position);
                     //Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * aux) + cm.transform.right * (i * (t / end))
                     //   , new Vector3(0.1f, 0.2f, 0.1f));
                     SearchPointAtRoom(auxPosition + (auxFoward * aux) + auxRight * (i * (t / end)),
                         new Vec3(cm.transform.position));
                     start = t;
+                    countLengthDivision++;
+                } while (countLengthDivision <= lengthDivision);
+
+                start = cm.nearClipPlane;
+                end = (cm.nearClipPlane + cm.farClipPlane);
+                float firstEnd = end;
+                countLengthDivision = 0;
+                do
+                {
+                    float t = Mathf.Lerp(start, end, 0.5f);
+                    if (end != firstEnd)
+                    {
+                        Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * t) + cm.transform.right * (i * ((t - 0.1f) / firstEnd))
+                           , new Vector3(0.1f, 0.2f, 0.1f));
+                        SearchPointAtRoom(auxPosition + (auxFoward * t) + auxRight * (i * ((t - 0.1f) / firstEnd)),
+                            new Vec3(cm.transform.position));
+                    }
+                    end = t;
                     countLengthDivision++;
                 } while (countLengthDivision <= lengthDivision);
             }
@@ -83,12 +101,13 @@ public class OcclusionCulling : MonoBehaviour
         //for(float i = frustrumwidth; i < (frustrumwidth *-1)+0.5f;i+= ((frustrumwidth * -2) / precisionRayDivisions))
         if (precisionRayDivisions > 0.5f)
         {
-            Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), new Vector3(0.1f, 0.2f, 0.1f));
+            //Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), new Vector3(0.1f, 0.2f, 0.1f));
             for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
             {
+                Gizmos.color = Color.red;
                 Gizmos.DrawRay(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), (cm.transform.forward * cm.farClipPlane) + cm.transform.right * i);
                 //a + (b - a) * t
-                //for (int t = 0; t <= lengthDivision; t++)
+
                 float countLengthDivision = 0;
                 float start = cm.nearClipPlane;
                 float end = (cm.nearClipPlane + cm.farClipPlane);
@@ -101,11 +120,29 @@ public class OcclusionCulling : MonoBehaviour
                    start = t;
                    countLengthDivision++;
                 } while (countLengthDivision <= lengthDivision);
-            
+
+                Gizmos.color = Color.yellow;
+                start = cm.nearClipPlane;
+                end = (cm.nearClipPlane + cm.farClipPlane);
+                float firstEnd = end;
+                countLengthDivision = 0;
+                do
+                {
+                    float t = Mathf.Lerp(start, end, 0.5f);
+                    if (end != firstEnd)
+                    {
+                        Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * t) + cm.transform.right * (i * ((t - 0.1f) / firstEnd))
+                           , new Vector3(0.1f, 0.2f, 0.1f));
+                    }
+                    end = t;
+                    countLengthDivision++;
+                } while (countLengthDivision <= lengthDivision);
+
+                Gizmos.color = Color.red;
                 Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * (cm.nearClipPlane + cm.farClipPlane)) + cm.transform.right * i, 
                     new Vector3(0.1f, 0.2f, 0.1f));
-            
             }
+
         }
         Gizmos.color = Color.white;
         
