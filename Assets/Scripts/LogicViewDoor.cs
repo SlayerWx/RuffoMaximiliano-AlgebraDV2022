@@ -21,12 +21,19 @@ public class LogicViewDoor : MonoBehaviour
     {
         return doors;
     }
-    public bool VerifyVectorToNextRoom(Vec3 viewPosition, Vec3 pointLoader, Vec3 nextRoomPosition, Vec3 normalFromPlane)
+    public bool VerifyVectorToNextRoom(Vec3 viewPosition, Vec3 pointLoader, Vec3 nextRoomPosition, Vec3 normalFromPlane, string name)
     {
+        bool aux = false;
         for (int i = 0; i < wallToDoors.Length; i++)
         {
-            if ((wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) < 0) == (wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0))
+            aux = wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) > 0;
+            if(!aux)
             {
+                aux = wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) < 0;
+            }
+            if (aux == (wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0))
+            {
+                Debug.Log(name + " " + wallToDoors[i].gameObject.name);
                 Vec3 direction = Vec3.Cross(wallToDoors[i].GetPlane().normal, Vec3.Up).normalized;
                 Vec3 center = new Vec3(wallToDoors[i].GetPlane().GetClosetPoint(nextRoomPosition)) + (direction * doors[i].distanceFromCenter);
                 Vec3 left = center - (direction * doors[i].width);

@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fa40126c9a723479ad79c75b1103f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  precisionRayDivisions: 10
+  precisionRayDivisions: 1
   lengthDivision: 3
   cm: {fileID: 746050764}
   rooms:
@@ -986,7 +986,7 @@ GameObject:
   - component: {fileID: 502270280}
   - component: {fileID: 502270277}
   m_Layer: 0
-  m_Name: floor
+  m_Name: floor (dd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1018,8 +1018,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 113fbd908d767fb4d98cb640c337abc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallToDoors: []
-  doors: []
+  wallToDoors:
+  - {fileID: 767567028}
+  doors:
+  - distanceFromCenter: 2
+    width: 0.6
+    height: 5
 --- !u!23 &502270278
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1083,7 +1087,7 @@ MonoBehaviour:
   - {fileID: 767567028}
   - {fileID: 1708659654}
   - {fileID: 2027101367}
-  doors: {fileID: 0}
+  doors: {fileID: 502270277}
 --- !u!1 &518622890
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,14 +15,12 @@ public class Room : MonoBehaviour
         {
             isInside = !((planes[i].GetPlane().GetDistanceToPoint(viewPoint) > 0f && planes[i].GetPlane().GetDistanceToPoint(aux) < 0f) ||
             (planes[i].GetPlane().GetDistanceToPoint(viewPoint) < 0f && planes[i].GetPlane().GetDistanceToPoint(aux) > 0f));
-            if(isInside)Debug.Log(transform.gameObject.name);
         }
         return isInside;
     }
-    public void SearchPointInsideRoom(Vec3 point,Vec3 origin)
+    public void SearchPointInsideRoom(Vec3 point,Vec3 origin,string name)
     {
         Vec3 aux = new Vec3(transform.position);
-        // Debug.Log("plano 0: " + planes[0].GetPlane().GetDistanceToPoint(point) + " " + planes[0].GetPlane().GetDistanceToPoint(aux));
 
         bool isInside = true;
         
@@ -37,7 +35,7 @@ public class Room : MonoBehaviour
                 bool seeDoor = false;
                 if (doors != null)
                 {
-                    seeDoor = doors.VerifyVectorToNextRoom(origin, point, positionAux, planes[i].GetPlane().normal);
+                    seeDoor = doors.VerifyVectorToNextRoom(origin, point, positionAux, planes[i].GetPlane().normal, name);
 
                 }
 
