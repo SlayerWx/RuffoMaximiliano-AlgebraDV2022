@@ -32,27 +32,27 @@ public class OcclusionCulling : MonoBehaviour
             VerifyViewPointRoom(new Vec3(cm.transform.position)); // se queda
             
             SearchPointAtRoom(new Vec3(cm.transform.position + (cm.transform.forward * cm.nearClipPlane)), new Vec3(cm.transform.position));
-            //for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
-            //{
-            //    float countLengthDivision = 0;
-            //    float start = cm.nearClipPlane;
-            //    float end = (cm.nearClipPlane + cm.farClipPlane);
-            //    //a + (b - a) * t
-            //    do
-            //    {
-            //        float t = start + ((end - start) / 2);
-            //        float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / end);
-            //        Vec3 auxRight = new Vec3(cm.transform.right);
-            //        Vec3 auxFoward = new Vec3(cm.transform.forward);
-            //        Vec3 auxPosition = new Vec3(cm.transform.position);
-            //        //Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * aux) + cm.transform.right * (i * (t / end))
-            //        //   , new Vector3(0.1f, 0.2f, 0.1f));
-            //        SearchPointAtRoom(auxPosition + (auxFoward * aux) + auxRight * (i * (t / end)),
-            //            new Vec3(cm.transform.position));
-            //        start = t;
-            //        countLengthDivision++;
-            //    } while (countLengthDivision <= lengthDivision);
-            //}
+            for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
+            {
+                float countLengthDivision = 0;
+                float start = cm.nearClipPlane;
+                float end = (cm.nearClipPlane + cm.farClipPlane);
+                //a + (b - a) * t
+                do
+                {
+                    float t = start + ((end - start) / 2);
+                    float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / end);
+                    Vec3 auxRight = new Vec3(cm.transform.right);
+                    Vec3 auxFoward = new Vec3(cm.transform.forward);
+                    Vec3 auxPosition = new Vec3(cm.transform.position);
+                    //Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * aux) + cm.transform.right * (i * (t / end))
+                    //   , new Vector3(0.1f, 0.2f, 0.1f));
+                    SearchPointAtRoom(auxPosition + (auxFoward * aux) + auxRight * (i * (t / end)),
+                        new Vec3(cm.transform.position));
+                    start = t;
+                    countLengthDivision++;
+                } while (countLengthDivision <= lengthDivision);
+            }
         }
     }
     void VerifyViewPointRoom(Vec3 viewOriginPoint)
@@ -84,28 +84,28 @@ public class OcclusionCulling : MonoBehaviour
         if (precisionRayDivisions > 0.5f)
         {
             Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), new Vector3(0.1f, 0.2f, 0.1f));
-            //for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
-            //{
-            //    Gizmos.DrawRay(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), (cm.transform.forward * cm.farClipPlane) + cm.transform.right * i);
-            //    //a + (b - a) * t
-            //    //for (int t = 0; t <= lengthDivision; t++)
-            //    float countLengthDivision = 0;
-            //    float start = cm.nearClipPlane;
-            //    float end = (cm.nearClipPlane + cm.farClipPlane);
-            //    do
-            //    {
-            //       float t = start +((end -start)/2);
-            //       float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / end);
-            //       Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * aux) + cm.transform.right * (i * (t / end))
-            //          , new Vector3(0.1f, 0.2f, 0.1f));
-            //       start = t;
-            //       countLengthDivision++;
-            //    } while (countLengthDivision <= lengthDivision);
-            //
-            //    Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * (cm.nearClipPlane + cm.farClipPlane)) + cm.transform.right * i, 
-            //        new Vector3(0.1f, 0.2f, 0.1f));
-            //
-            //}
+            for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
+            {
+                Gizmos.DrawRay(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), (cm.transform.forward * cm.farClipPlane) + cm.transform.right * i);
+                //a + (b - a) * t
+                //for (int t = 0; t <= lengthDivision; t++)
+                float countLengthDivision = 0;
+                float start = cm.nearClipPlane;
+                float end = (cm.nearClipPlane + cm.farClipPlane);
+                do
+                {
+                   float t = start +((end -start)/2);
+                   float aux = cm.nearClipPlane + (cm.farClipPlane - cm.nearClipPlane) * (t / end);
+                   Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * aux) + cm.transform.right * (i * (t / end))
+                      , new Vector3(0.1f, 0.2f, 0.1f));
+                   start = t;
+                   countLengthDivision++;
+                } while (countLengthDivision <= lengthDivision);
+            
+                Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * (cm.nearClipPlane + cm.farClipPlane)) + cm.transform.right * i, 
+                    new Vector3(0.1f, 0.2f, 0.1f));
+            
+            }
         }
         Gizmos.color = Color.white;
         
