@@ -23,10 +23,14 @@ public class LogicViewDoor : MonoBehaviour
     }
     public bool VerifyVectorToNextRoom(Vec3 viewPosition, Vec3 pointLoader, Vec3 nextRoomPosition, Vec3 normalFromPlane, string name)
     {
-        for (int i = 0; i < wallToDoors.Length; i++)
+        for (int i = 0; i < wallToDoors.Length && i < doors.Length; i++)
         {
-            
-            if ((wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0))
+            bool check = (wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) < 0 &&
+                          wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) < 0) ||
+                         (wallToDoors[i].GetPlane().GetDistanceToPoint(viewPosition * -1) > 0 &&
+                          wallToDoors[i].GetPlane().GetDistanceToPoint(pointLoader) > 0);
+
+            if (check)
             {
                 Vec3 direction = Vec3.Cross(wallToDoors[i].GetPlane().normal, Vec3.Up).normalized;
                 Vec3 center = new Vec3(wallToDoors[i].GetPlane().GetClosetPoint(nextRoomPosition)) + (direction * doors[i].distanceFromCenter);

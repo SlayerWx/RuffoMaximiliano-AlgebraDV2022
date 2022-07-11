@@ -62,8 +62,8 @@ public class OcclusionCulling : MonoBehaviour
                     float t = Mathf.Lerp(start, end, 0.5f);
                     if (end != firstEnd)
                     {
-                        Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * t) + cm.transform.right * (i * ((t - 0.1f) / firstEnd))
-                           , new Vector3(0.1f, 0.2f, 0.1f));
+                        //Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * t) + cm.transform.right * (i * ((t - 0.1f) / firstEnd))
+                        //   , new Vector3(0.1f, 0.2f, 0.1f));
                         SearchPointAtRoom(auxPosition + (auxFoward * t) + auxRight * (i * ((t - 0.1f) / firstEnd)),
                             new Vec3(cm.transform.position));
                     }
