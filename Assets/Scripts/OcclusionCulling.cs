@@ -31,7 +31,7 @@ public class OcclusionCulling : MonoBehaviour
         {
             VerifyViewPointRoom(new Vec3(cm.transform.position)); // se queda
             
-            SearchPointAtRoom(new Vec3(cm.transform.position + ((cm.transform.forward * 20f) * cm.nearClipPlane)), new Vec3(cm.transform.position));
+            SearchPointAtRoom(new Vec3(cm.transform.position + (cm.transform.forward * cm.nearClipPlane)), new Vec3(cm.transform.position));
             //for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
             //{
             //    float countLengthDivision = 0;
@@ -83,7 +83,7 @@ public class OcclusionCulling : MonoBehaviour
         //for(float i = frustrumwidth; i < (frustrumwidth *-1)+0.5f;i+= ((frustrumwidth * -2) / precisionRayDivisions))
         if (precisionRayDivisions > 0.5f)
         {
-            Gizmos.DrawCube(cm.transform.position + ((cm.transform.forward * 20f) * cm.nearClipPlane), new Vector3(0.1f, 0.2f, 0.1f));
+            Gizmos.DrawCube(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), new Vector3(0.1f, 0.2f, 0.1f));
             //for (float i = -frustrumwidth; i < frustrumwidth; i += ((frustrumwidth * 2) / (precisionRayDivisions - 0.5f)))
             //{
             //    Gizmos.DrawRay(cm.transform.position + (cm.transform.forward * cm.nearClipPlane), (cm.transform.forward * cm.farClipPlane) + cm.transform.right * i);
