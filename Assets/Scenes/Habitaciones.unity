@@ -231,7 +231,8 @@ MonoBehaviour:
   planes:
   - {fileID: 1293937550}
   - {fileID: 2027101367}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 13729966}
 --- !u!1 &63441067
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,7 +397,8 @@ MonoBehaviour:
   - {fileID: 767567028}
   - {fileID: 1708659654}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 110228113}
 --- !u!1 &121128623
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +503,7 @@ MonoBehaviour:
   doors:
   - distanceFromCenter: 0
     width: 0.6
-    height: 5
+    height: 3
 --- !u!23 &276550239
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -566,7 +568,8 @@ MonoBehaviour:
   - {fileID: 1293937550}
   - {fileID: 2027101367}
   - {fileID: 121128626}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 276550238}
 --- !u!1 &302756819
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,7 +625,7 @@ MonoBehaviour:
     height: 5
   - distanceFromCenter: 0
     width: 0.6
-    height: 5
+    height: 3
 --- !u!23 &302756822
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -686,7 +689,61 @@ MonoBehaviour:
   - {fileID: 767567028}
   - {fileID: 2027101367}
   - {fileID: 121128626}
+  - {fileID: 370203394}
   doors: {fileID: 302756821}
+--- !u!1 &370203392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 370203393}
+  - component: {fileID: 370203394}
+  m_Layer: 0
+  m_Name: top
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &370203393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370203392}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453084780}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &370203394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370203392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b31b6e5e3afd28e49b63df0a87525526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originPoint:
+    x: 0
+    y: 6.5
+    z: 0
+  normal:
+    x: 0
+    y: -1
+    z: 0
+  width: 50
+  height: 50
 --- !u!1 &435013462
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,10 +796,10 @@ MonoBehaviour:
   doors:
   - distanceFromCenter: 0
     width: 0.6
-    height: 5
+    height: 3
   - distanceFromCenter: 0
     width: 0.6
-    height: 5
+    height: 3
 --- !u!23 &435013465
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -807,7 +864,8 @@ MonoBehaviour:
   - {fileID: 1708659654}
   - {fileID: 2027101367}
   - {fileID: 121128626}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 435013464}
 --- !u!1 &453084779
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,6 +900,7 @@ Transform:
   - {fileID: 2027101365}
   - {fileID: 121128624}
   - {fileID: 63441068}
+  - {fileID: 370203393}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -891,7 +950,7 @@ GameObject:
   - component: {fileID: 479492766}
   - component: {fileID: 479492763}
   m_Layer: 0
-  m_Name: floor (derecha)
+  m_Name: floor first
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -928,7 +987,7 @@ MonoBehaviour:
   doors:
   - distanceFromCenter: 2
     width: 0.6
-    height: 5
+    height: 3
 --- !u!23 &479492764
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -991,6 +1050,7 @@ MonoBehaviour:
   planes:
   - {fileID: 767567028}
   - {fileID: 2027101367}
+  - {fileID: 370203394}
   doors: {fileID: 479492763}
 --- !u!1 &502270275
 GameObject:
@@ -1006,7 +1066,7 @@ GameObject:
   - component: {fileID: 502270280}
   - component: {fileID: 502270277}
   m_Layer: 0
-  m_Name: floor (dd
+  m_Name: floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1103,6 +1163,7 @@ MonoBehaviour:
   - {fileID: 767567028}
   - {fileID: 1708659654}
   - {fileID: 2027101367}
+  - {fileID: 370203394}
   doors: {fileID: 502270277}
 --- !u!1 &518622890
 GameObject:
@@ -1215,7 +1276,8 @@ MonoBehaviour:
   - {fileID: 1293937550}
   - {fileID: 121128626}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 518622892}
 --- !u!1 &543698422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,7 +1390,8 @@ MonoBehaviour:
   - {fileID: 1293937550}
   - {fileID: 121128626}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 543698424}
 --- !u!1 &746050762
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1654,8 @@ MonoBehaviour:
   - {fileID: 1708659654}
   - {fileID: 1293937550}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 1050150871}
 --- !u!1 &1159668446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,6 +1767,7 @@ MonoBehaviour:
   - {fileID: 1293937550}
   - {fileID: 2027101367}
   - {fileID: 121128626}
+  - {fileID: 370203394}
   doors: {fileID: 0}
 --- !u!1 &1293937547
 GameObject:
@@ -1869,7 +1934,8 @@ MonoBehaviour:
   - {fileID: 1708659654}
   - {fileID: 121128626}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 1306954788}
 --- !u!1 &1314525880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,7 +2092,8 @@ MonoBehaviour:
   planes:
   - {fileID: 767567028}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 1386030751}
 --- !u!1 &1497826684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,7 +2297,8 @@ MonoBehaviour:
   - {fileID: 767567028}
   - {fileID: 121128626}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 1702732471}
 --- !u!1 &1708659651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,7 +2462,8 @@ MonoBehaviour:
   planes:
   - {fileID: 1293937550}
   - {fileID: 63441070}
-  doors: {fileID: 0}
+  - {fileID: 370203394}
+  doors: {fileID: 1723713974}
 --- !u!1 &2027101364
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,4 +2628,5 @@ MonoBehaviour:
   - {fileID: 1708659654}
   - {fileID: 1293937550}
   - {fileID: 2027101367}
+  - {fileID: 370203394}
   doors: {fileID: 0}
